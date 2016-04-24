@@ -25,7 +25,10 @@ class CreatePayout extends BasePayout
      */
     public function getResponse()
     {
-        return new Response\CreatePayout();
+        $response = $this->getRawResponse();
+        $data     = $this->responseToArray($response);
+
+        return Response\CreatePayout::factory($data);
     }
 
     /**

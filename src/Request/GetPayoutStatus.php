@@ -25,7 +25,10 @@ class GetPayoutStatus extends BasePayout
      */
     public function getResponse()
     {
-        return new Response\GetPayoutStatus();
+        $response = $this->getRawResponse();
+        $data     = $this->responseToArray($response);
+
+        return Response\GetPayoutStatus::factory($data);
     }
 
     /**

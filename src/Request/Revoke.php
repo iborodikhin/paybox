@@ -25,7 +25,10 @@ class Revoke extends Base
      */
     public function getResponse()
     {
-        return new Response\Revoke();
+        $response = $this->getRawResponse();
+        $data     = $this->responseToArray($response);
+
+        return Response\Revoke::factory($data);
     }
 
     /**

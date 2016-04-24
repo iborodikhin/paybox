@@ -25,7 +25,10 @@ class MakeRecurringPayment extends Base
      */
     public function getResponse()
     {
-        return new Response\MakeRecurringPayment();
+        $response = $this->getRawResponse();
+        $data     = $this->responseToArray($response);
+
+        return Response\MakeRecurringPayment::factory($data);
     }
 
     /**

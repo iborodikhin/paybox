@@ -25,7 +25,10 @@ class CreateRefundRequest extends Base
      */
     public function getResponse()
     {
-        return new Response\CreateRefundRequest();
+        $response = $this->getRawResponse();
+        $data     = $this->responseToArray($response);
+
+        return Response\CreateRefundRequest::factory($data);
     }
 
     /**

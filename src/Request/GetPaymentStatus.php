@@ -25,7 +25,10 @@ class GetPaymentStatus extends Base
      */
     public function getResponse()
     {
-        return new Response\GetPaymentStatus();
+        $response = $this->getRawResponse();
+        $data     = $this->responseToArray($response);
+
+        return Response\GetPaymentStatus::factory($data);
     }
 
     /**

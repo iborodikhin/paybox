@@ -25,7 +25,10 @@ class DoCapture extends Base
      */
     public function getResponse()
     {
-        return new Response\DoCapture();
+        $response = $this->getRawResponse();
+        $data     = $this->responseToArray($response);
+
+        return Response\DoCapture::factory($data);
     }
 
     /**

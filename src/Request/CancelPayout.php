@@ -25,7 +25,10 @@ class CancelPayout extends BasePayout
      */
     public function getResponse()
     {
-        return new Response\CancelPayout();
+        $response = $this->getRawResponse();
+        $data     = $this->responseToArray($response);
+
+        return Response\CancelPayout::factory($data);
     }
 
     /**

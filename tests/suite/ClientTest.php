@@ -41,6 +41,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('pg_redirect_url', $result->toArray());
     }
 
+//    public function testCancel()
+//    {
+//        $result = $this->client->cancel(uniqid());
+//
+//        $this->assertInstanceOf('\\Paybox\\Response\\Cancel', $result);
+//    }
+//
+//    public function testCancelPayout()
+//    {
+//        $result = $this->client->cancelPayout();
+//
+//        $this->assertInstanceOf('\\Paybox\\Response\\CancelPayout', $result);
+//    }
+
     /**
      * {@inheritdoc}
      */
