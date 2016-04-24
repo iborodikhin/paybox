@@ -15,20 +15,17 @@ class DoCapture extends Base
      */
     protected function getRequestUrl()
     {
-        return self::URL_DO_CAPTURE;
+        return '/do_capture.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\DoCapture
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\DoCapture::factory($data);
+        return '\\Paybox\\Response\\DoCapture';
     }
 
     /**

@@ -15,20 +15,17 @@ class Cancel extends Base
      */
     protected function getRequestUrl()
     {
-        return self::URL_CANCEL;
+        return '/cancel.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\Cancel
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\Cancel::factory($data);
+        return '\\Paybox\\Response\\Cancel';
     }
 
     /**

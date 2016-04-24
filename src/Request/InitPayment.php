@@ -15,20 +15,17 @@ class InitPayment extends Base
      */
     protected function getRequestUrl()
     {
-        return self::URL_INIT_PAYMENT;
+        return '/init_payment.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\InitPayment
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\InitPayment::factory($data);
+        return '\\Paybox\\Response\\InitPayment';
     }
 
     /**

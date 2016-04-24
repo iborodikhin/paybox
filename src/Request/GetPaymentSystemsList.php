@@ -15,20 +15,17 @@ class GetPaymentSystemsList extends Base
      */
     protected function getRequestUrl()
     {
-        return self::URL_PAYMENT_SYSTEMS_LIST;
+        return '/ps_list.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\GetPaymentSystemsList
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\GetPaymentSystemsList::factory($data);
+        return '\\Paybox\\Response\\GetPaymentSystemsList';
     }
 
     /**

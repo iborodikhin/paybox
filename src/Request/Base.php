@@ -13,33 +13,11 @@ use Paybox\Xml;
 abstract class Base extends Entity
 {
     /**
-     * URLs.
-     */
-    const URL_INIT_PAYMENT = '/init_payment.php';
-    const URL_PAYMENT_SYSTEMS_LIST = '/ps_list.php';
-    const URL_PAYMENT_STATUS = '/get_status.php';
-    const URL_MAKE_RECURRING_PAYMENT = '/make_recurring_payment.php';
-    const URL_DO_CAPTURE = '/do_capture.php';
-    const URL_REVOKE = '/revoke.php';
-    const URL_CREATE_REFUND_REQUEST = '/create_refund_request.php';
-    const URL_CANCEL = '/cancel.php';
-    const URL_CREATE_PAYOUT = '/create_payout.php';
-    const URL_GET_PAYOUT_STATUS = '/get_payout_status.php';
-    const URL_CANCEL_PAYOUT = '/cancel_payout.php';
-
-    /**
      * Payout/refund systems.
      */
     const PAYOUT_SYSTEM_CONTACT = 'CONTACT_O';
     const PAYOUT_SYSTEM_YANDEXMONEY = 'YANDEXMONEY_O';
     const PAYOUT_SYSTEM_MOBILEPHONE = 'MOBILEPHONE_O';
-
-    /**
-     * Request URL.
-     *
-     * @var string
-     */
-    protected $requestUrl;
 
     /**
      * Secret string for signing.
@@ -77,11 +55,11 @@ abstract class Base extends Entity
     abstract protected function getRequestUrl();
 
     /**
-     * Returns response for request.
+     * Returns corresponding response class name.
      *
-     * @return \Paybox\Response\Base
+     * @return string
      */
-    abstract public function getResponse();
+    abstract protected function getResponseClassName();
 
     /**
      * Constructor.
@@ -95,6 +73,19 @@ abstract class Base extends Entity
         $this->secret  = $options['secret'];
         $this->scheme  = $options['scheme'];
         $this->host    = $options['host'];
+    }
+
+    /**
+     * Returns response for request.
+     *
+     * @return \Paybox\Response\Base
+     */
+    public function getResponse()
+    {
+        $response = $this->getRawResponse();
+        $data     = $this->responseToArray($response);
+
+        return call_user_func([$this->getResponseClassName(), 'factory'], $data);
     }
 
     /**

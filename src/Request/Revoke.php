@@ -15,20 +15,17 @@ class Revoke extends Base
      */
     protected function getRequestUrl()
     {
-        return self::URL_REVOKE;
+        return '/revoke.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\Revoke
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\Revoke::factory($data);
+        return '\\Paybox\\Response\\Revoke';
     }
 
     /**

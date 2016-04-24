@@ -15,20 +15,17 @@ class GetPayoutStatus extends BasePayout
      */
     protected function getRequestUrl()
     {
-        return self::URL_GET_PAYOUT_STATUS;
+        return '/get_payout_status.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\GetPayoutStatus
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\GetPayoutStatus::factory($data);
+        return '\\Paybox\\Response\\GetPayoutStatus';
     }
 
     /**

@@ -15,20 +15,17 @@ class MakeRecurringPayment extends Base
      */
     protected function getRequestUrl()
     {
-        return self::URL_MAKE_RECURRING_PAYMENT;
+        return '/make_recurring_payment.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\MakeRecurringPayment
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\MakeRecurringPayment::factory($data);
+        return '\\Paybox\\Response\\MakeRecurringPayment';
     }
 
     /**

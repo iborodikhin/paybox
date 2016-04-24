@@ -15,20 +15,17 @@ class GetPaymentStatus extends Base
      */
     protected function getRequestUrl()
     {
-        return self::URL_PAYMENT_STATUS;
+        return '/get_status.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\GetPaymentStatus
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\GetPaymentStatus::factory($data);
+        return '\\Paybox\\Response\\GetPaymentStatus';
     }
 
     /**

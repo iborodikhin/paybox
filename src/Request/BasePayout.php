@@ -1,5 +1,6 @@
 <?php
 namespace Paybox\Request;
+
 use Paybox\Exception\Http;
 
 /**

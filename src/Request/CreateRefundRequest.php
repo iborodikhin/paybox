@@ -15,20 +15,17 @@ class CreateRefundRequest extends Base
      */
     protected function getRequestUrl()
     {
-        return self::URL_CREATE_REFUND_REQUEST;
+        return '/create_refund_request.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\CreateRefundRequest
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\CreateRefundRequest::factory($data);
+        return '\\Paybox\\Response\\CreateRefundRequest';
     }
 
     /**

@@ -15,20 +15,17 @@ class CreatePayout extends BasePayout
      */
     protected function getRequestUrl()
     {
-        return self::URL_CREATE_PAYOUT;
+        return '/create_payout.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\CreatePayout
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\CreatePayout::factory($data);
+        return '\\Paybox\\Response\\CreatePayout';
     }
 
     /**

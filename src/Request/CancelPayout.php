@@ -15,20 +15,17 @@ class CancelPayout extends BasePayout
      */
     protected function getRequestUrl()
     {
-        return self::URL_CANCEL_PAYOUT;
+        return '/cancel_payout.php';
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Paybox\Response\CancelPayout
+     * @return string
      */
-    public function getResponse()
+    protected function getResponseClassName()
     {
-        $response = $this->getRawResponse();
-        $data     = $this->responseToArray($response);
-
-        return Response\CancelPayout::factory($data);
+        return '\\Paybox\\Response\\CancelPayout';
     }
 
     /**
