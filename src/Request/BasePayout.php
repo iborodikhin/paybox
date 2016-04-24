@@ -1,5 +1,6 @@
 <?php
 namespace Paybox\Request;
+use Paybox\Exception\Http;
 
 /**
  * Base payout request.
@@ -22,6 +23,33 @@ abstract class BasePayout extends Base
      * Verifier node id.
      */
     const VERIFIER_NODE_ID = 1;
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     * @throws \Paybox\Exception\Http
+     */
+    protected function getRawResponse()
+    {
+        /** @var \Buzz\Message\Response $result */
+        $uri    = sprintf('%s://%s%s', $this->scheme, $this->host, $this->getRequestUrl());
+        $result = $this->browser->submit($uri, array_merge(
+            $this->toArray(),
+            ['token' => $this->getToken(), 'signature_for_verifier' => $this->getSignature()]
+        ));
+
+        if ($result->isClientError() || $result->isServerError()) {
+            if ($result->getStatusCode() >= 400) {
+                throw new Http(
+                    sprintf('Paybox responded with code %d: %s', $result->getStatusCode(), $result->getContent()),
+                    $result->getStatusCode()
+                );
+            }
+        }
+
+        return $result->getContent();
+    }
 
     /**
      * Generates token for request.
