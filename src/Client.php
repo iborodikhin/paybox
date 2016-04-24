@@ -191,9 +191,10 @@ class Client
      * @param  float                        $amount
      * @param  string                       $paymentSystem
      * @param  string                       $description
+     * @param  string                       $phone
      * @return \Paybox\Response\InitPayment
      */
-    public function initPayment($amount, $paymentSystem, $description)
+    public function initPayment($amount, $paymentSystem, $description, $phone)
     {
         $cmd = new Request\InitPayment($this->browser, $this->options);
 
@@ -201,6 +202,7 @@ class Client
         $cmd->set('pg_amount', $amount);
         $cmd->set('pg_payment_system', $paymentSystem);
         $cmd->set('pg_description', $description);
+        $cmd->set('pg_user_phone', $phone);
 
         return $cmd->getResponse();
     }

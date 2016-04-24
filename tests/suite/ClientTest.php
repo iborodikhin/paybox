@@ -5,66 +5,25 @@ use Paybox\Client;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var \Paybox\Client
-     */
-    protected $client;
-
-    /**
-     * Test payment systems list request.
-     */
-    public function testGetPaymentSystemsListPositive()
+    public function testScenario()
     {
-        $result = $this->client->getPaymentSystemsList(1000);
-
-        $this->assertInstanceOf('\\Paybox\\Response\\GetPaymentSystemsList', $result);
-        $this->assertArrayHasKey('pg_payment_system', $result->toArray());
-    }
-
-    /**
-     * @expectedException \Paybox\Exception\Base
-     */
-    public function testGetPaymentSystemsListNegative()
-    {
-        $result = $this->client->getPaymentSystemsList("invalid-amount");
-    }
-
-    /**
-     * Test payment initialization.
-     */
-    public function testInitPayment()
-    {
-        $result = $this->client->initPayment(1000, 'TESTCARD', 'test payment');
-
-        $this->assertInstanceOf('\\Paybox\\Response\\InitPayment', $result);
-        $this->assertArrayHasKey('pg_payment_id', $result->toArray());
-        $this->assertArrayHasKey('pg_redirect_url', $result->toArray());
-    }
-
-//    public function testCancel()
-//    {
-//        $result = $this->client->cancel(uniqid());
-//
-//        $this->assertInstanceOf('\\Paybox\\Response\\Cancel', $result);
-//    }
-//
-//    public function testCancelPayout()
-//    {
-//        $result = $this->client->cancelPayout();
-//
-//        $this->assertInstanceOf('\\Paybox\\Response\\CancelPayout', $result);
-//    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setUp()
-    {
-        $this->client = new Client([
+        $client = new Client([
             'scheme'      => getenv('scheme'),
             'host'        => getenv('host'),
             'secret'      => getenv('merchant_secret'),
             'merchant_id' => getenv('merchant_id'),
         ]);
+
+        $result = $client->getPaymentSystemsList(1000);
+        $this->assertInstanceOf('\\Paybox\\Response\\GetPaymentSystemsList', $result);
+        $this->assertArrayHasKey('pg_payment_system', $result->toArray());
+
+        $psList = $result->toArray()['pg_payment_system'];
+        $psItem = $psList[array_rand($psList)];
+
+        $result = $client->initPayment(1000, $psItem['pg_name'], uniqid('test payment'), '77772444081');
+        $this->assertInstanceOf('\\Paybox\\Response\\InitPayment', $result);
+        $this->assertArrayHasKey('pg_payment_id', $result->toArray());
+        $this->assertArrayHasKey('pg_redirect_url', $result->toArray());
     }
 }
