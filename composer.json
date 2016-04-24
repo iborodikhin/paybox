@@ -1,0 +1,26 @@
+{
+    "name": "iborodikhin/paybox",
+    "description": "Paybox client library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Borodikhin",
+            "email": "iborodikhin@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Paybox\\": "src/",
+            "Paybox\\Test\\": "tests/suite/"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "kriswallsmith/buzz": "^0.15.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.6",
+        "squizlabs/php_codesniffer": "^2.3"
+    }
+}
