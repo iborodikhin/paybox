@@ -1,13 +1,12 @@
 # Paybox
-Client library for Paybox.kz payment service.
+Client library for Paybox.kz.
 
-# Installation
+## Installation
 
     composer require iborodikhin/paybox
 
 ## Usage example
 
-   $client = new \Paybox\Client($options);
-   
-   var_dump($client->getPaymentSystemsList($amount));
-
+    $client = new \Paybox\Client($options);
+    
+    var_dump($client->getPaymentSystemsList($amount));
